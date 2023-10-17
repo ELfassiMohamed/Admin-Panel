@@ -12,6 +12,7 @@ use Filament\Resources\Resource;
 use Illuminate\Support\Facades\Hash;
 use Filament\Forms\Components\Select;
 use Filament\Tables\Actions\EditAction;
+use Filament\Tables\Columns\TextColumn;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\DatePicker;
 use Illuminate\Database\Eloquent\Builder;
@@ -29,7 +30,7 @@ class EmployeeResource extends Resource
 {
     protected static ?string $model = Employee::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-collection';
+    protected static ?string $navigationIcon = 'heroicon-o-user-group';
 
     public static function form(Form $form): Form
     {
@@ -48,7 +49,7 @@ class EmployeeResource extends Resource
                 ])->required(),
                 TextInput::make('email')
                 ->label('Email Address')
-                 ->url()
+                 ->email()
                  ->suffix('@test.com'),
                  TextInput::make('password')->password()
                  ->required(fn(Page $Livewire): bool => $Livewire instanceof CreateRecord)
@@ -67,7 +68,12 @@ class EmployeeResource extends Resource
     {
         return $table
             ->columns([
-                //
+                TextColumn::make('first_name')->searchable(),
+                TextColumn::make('last_name')->searchable(),
+                TextColumn::make('birth_date'),
+                TextColumn::make('department.name')->sortable()->searchable(),
+                TextColumn::make('user_role')->searchable()
+                
             ])
             ->filters([
                 //
