@@ -11,12 +11,15 @@ class Employee extends Model
 
     protected $fillable = [
         'department_id',
+        'full_name',
         'first_name',
         'last_name',
-        'user_role',
+        'employee_role',
+        'employee_status',
+        'address',
         'birth_date',
         'email',
-        'password'
+        'phone'
     ];
 
     public function department() {

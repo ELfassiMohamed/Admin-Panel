@@ -14,12 +14,15 @@ return new class extends Migration
         Schema::create('employees', function (Blueprint $table) {
             $table->id();
             $table->foreignId('department_id')->constrained()->cascadeOnDelete();
+            $table->string('full_name')->virtualAs('concat(first_name, \' \', last_name)');
             $table->string('first_name');
             $table->string('last_name');
-            $table->string('user_role');
+            $table->string('employee_role');
+            $table->string('employee_status');
             $table->date('birth_date');
+            $table->text('address');
             $table->string('email')->unique();
-            $table->string('password');
+            $table->string('phone');
             $table->timestamps();
         });
     }

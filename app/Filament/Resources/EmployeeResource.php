@@ -25,6 +25,8 @@ use App\Filament\Resources\EmployeeResource\RelationManagers;
 use App\Filament\Resources\EmployeeResource\Pages\EditEmployee;
 use App\Filament\Resources\EmployeeResource\Pages\ListEmployees;
 use App\Filament\Resources\EmployeeResource\Pages\CreateEmployee;
+use Filament\Forms\Components\Radio;
+use Filament\Forms\Components\Textarea;
 
 class EmployeeResource extends Resource
 {
@@ -36,44 +38,51 @@ class EmployeeResource extends Resource
     {
         return $form
             ->schema([
-                TextInput::make('first_name'),
-                TextInput::make('last_name'),
-                DatePicker::make('birth_date'),
+                TextInput::make('first_name')->required(),
+                TextInput::make('last_name')->required(),
+                DatePicker::make('birth_date')->required(),
+                Textarea::make('address')->rows(3)->required(),
                 Select::make('department_id')
-                ->relationship('department', 'name')->required(),
-                Select::make('user_role')
-                ->options([
-                    'department_chef' => 'Department Chef',
-                    'professor' => 'Professor',
-                    'student' => 'Student',
-                ])->required(),
+                    ->relationship('department', 'name')->required(),
+                Select::make('employee_role')
+                    ->options([
+                        'R1' => 'Department Chef',
+                        'R2' => '1st Employee',
+                        'R3' => 'Intern',
+                    ])->required(),
                 TextInput::make('email')
-                ->label('Email Address')
-                 ->email()
-                 ->suffix('@test.com'),
-                 TextInput::make('password')->password()
-                 ->required(fn(Page $Livewire): bool => $Livewire instanceof CreateRecord)
-                 ->minLength(8)
-                 ->same('passwordConfirmation')->dehydrated(fn ($state) => filled($state))
-                 ->dehydrateStateUsing(fn ($state) => Hash::make($state)),
-                 
-                 TextInput::make('passwordConfirmation')->label('Pasword Confirmation')->password()
-                 ->required(fn(Page $Livewire): bool => $Livewire instanceof CreateRecord)
-                 ->minLength(8)
-                 ->dehydrated(false)
-                        ]);
+                ->required()
+                    ->label('Email Address')
+                    ->email()
+                    ->suffix('@test.com'),
+                    TextInput::make('phone')->required(),
+                    Radio::make('employee_status')
+                    ->options([
+                        'S1' => 'Active',
+                        'S2' => 'Postpond',
+                        'S3' => 'Not Active',
+                    ])->inline()->required(),
+            ]);
     }
 
     public static function table(Table $table): Table
     {
         return $table
             ->columns([
-                TextColumn::make('first_name')->searchable(),
-                TextColumn::make('last_name')->searchable(),
-                TextColumn::make('birth_date'),
+                TextColumn::make('id')->searchable(),
+                TextColumn::make('full_name')->searchable(),
                 TextColumn::make('department.name')->sortable()->searchable(),
-                TextColumn::make('user_role')->searchable()
-                
+                TextColumn::make('employee_role')->enum([
+                    'R1' => 'Department Chef',
+                    'R2' => '1st Employee',
+                    'R3' => 'Intern',
+                ])->searchable(),
+                TextColumn::make('employee_status')->enum([
+                    'S1' => 'Active',
+                        'S2' => 'Postpond',
+                        'S3' => 'Not Active',
+                ])->searchable(),
+
             ])
             ->filters([
                 //
@@ -85,14 +94,14 @@ class EmployeeResource extends Resource
                 Tables\Actions\DeleteBulkAction::make(),
             ]);
     }
-    
+
     public static function getRelations(): array
     {
         return [
             //
         ];
     }
-    
+
     public static function getPages(): array
     {
         return [
@@ -100,5 +109,5 @@ class EmployeeResource extends Resource
             'create' => Pages\CreateEmployee::route('/create'),
             'edit' => Pages\EditEmployee::route('/{record}/edit'),
         ];
-    }    
+    }
 }
