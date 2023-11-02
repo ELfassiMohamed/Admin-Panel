@@ -9,12 +9,16 @@ use Filament\Pages\Page;
 use Filament\Resources\Form;
 use Filament\Resources\Table;
 use Filament\Resources\Resource;
+use Filament\Forms\Components\Radio;
 use Illuminate\Support\Facades\Hash;
 use Filament\Forms\Components\Select;
+use Filament\Forms\Components\Textarea;
 use Filament\Tables\Actions\EditAction;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Forms\Components\TextInput;
+use Filament\Tables\Columns\ImageColumn;
 use Filament\Forms\Components\DatePicker;
+use Filament\Forms\Components\FileUpload;
 use Illuminate\Database\Eloquent\Builder;
 use Filament\Resources\Pages\CreateRecord;
 use Filament\Tables\Actions\DeleteBulkAction;
@@ -25,8 +29,6 @@ use App\Filament\Resources\EmployeeResource\RelationManagers;
 use App\Filament\Resources\EmployeeResource\Pages\EditEmployee;
 use App\Filament\Resources\EmployeeResource\Pages\ListEmployees;
 use App\Filament\Resources\EmployeeResource\Pages\CreateEmployee;
-use Filament\Forms\Components\Radio;
-use Filament\Forms\Components\Textarea;
 
 class EmployeeResource extends Resource
 {
@@ -38,6 +40,7 @@ class EmployeeResource extends Resource
     {
         return $form
             ->schema([
+                FileUpload::make('image')->image(),
                 TextInput::make('first_name')->required(),
                 TextInput::make('last_name')->required(),
                 DatePicker::make('birth_date')->required(),
@@ -70,6 +73,7 @@ class EmployeeResource extends Resource
         return $table
             ->columns([
                 TextColumn::make('id')->searchable(),
+                ImageColumn::make('image')->circular(),
                 TextColumn::make('full_name')->searchable(),
                 TextColumn::make('department.name')->sortable()->searchable(),
                 TextColumn::make('employee_role')->enum([

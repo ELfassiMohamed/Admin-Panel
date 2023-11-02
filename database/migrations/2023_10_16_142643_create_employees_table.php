@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('department_id')->constrained()->cascadeOnDelete();
             $table->string('full_name')->virtualAs('concat(first_name, \' \', last_name)');
+            $table->string('image');
             $table->string('first_name');
             $table->string('last_name');
             $table->string('employee_role');
