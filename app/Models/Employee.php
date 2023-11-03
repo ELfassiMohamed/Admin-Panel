@@ -23,6 +23,10 @@ class Employee extends Model
         'phone'
     ];
 
+    protected $hidden = [
+        'birth_date',
+    ];
+
     public function department() {
         return $this->belongsTo(Department::class);
     }
