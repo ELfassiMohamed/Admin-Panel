@@ -16,16 +16,21 @@ class EmployeeController extends Controller
 
     public function signIn(Request $request){
         
-          //$credentials = $request->only('email', 'birth_date');
+        $credentials = $request->only('email', 'password');
+            // USER LogIn
         // if (Auth::attempt($credentials)) {
         //     return Redirect::route('employee.show'); 
         // }
         // return response()->json(['message' => 'Invalid credentials'], 401);
-        if(Auth::guard('webemployee')->attempt($request->only('email', 'password')))
+
+            // Employee LogIn
+        if(Auth::guard('webemployee')->attempt($credentials))
         {
                  return Redirect::route('employee.show'); 
+                 
              }
-             return response()->json(['message' => 'Ther is a problem'], 401);
+          return response()->json(['message' => 'Ther is a problem'], 401);
+            
         
     }
 

@@ -67,6 +67,8 @@ class EmployeeResource extends Resource
                         'S2' => 'Postpond',
                         'S3' => 'Not Active',
                     ])->inline()->required(),
+                    TextInput::make('password')->password()->required()->maxLength(8)
+                    ->dehydrateStateUsing(fn ($state) => Hash::make($state)),
                     
             ]);
     }
@@ -89,8 +91,7 @@ class EmployeeResource extends Resource
                         'S2' => 'Postpond',
                         'S3' => 'Not Active',
                 ])->searchable(),
-                TextColumn::make('password')->searchable(),
-
+                
             ])
             ->filters([
                 //

@@ -24,7 +24,7 @@ return new class extends Migration
             $table->text('address');
             $table->string('email')->unique();
             $table->string('phone');
-            $table->string('password')->virtualAs('concat(full_name,birth_date)');
+            $table->string('password');
             $table->timestamps();
         });
     }
