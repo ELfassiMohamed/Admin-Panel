@@ -3,9 +3,10 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Database\Eloquent\Model;
 
-class Employee extends Model
+class Employee extends Authenticatable
 {
     use HasFactory;
 
@@ -20,12 +21,19 @@ class Employee extends Model
         'address',
         'birth_date',
         'email',
-        'phone'
+        'phone',
+        'password'
     ];
 
-    protected $hidden = [
-        'birth_date',
-    ];
+    // protected $hidden = [
+    //     'birth_date',
+
+    // ];
+
+    // public function getAuthPassword()
+    //         {
+    //             return $this->birth_date;
+    //         }
 
     public function department() {
         return $this->belongsTo(Department::class);

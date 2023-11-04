@@ -4,7 +4,7 @@ import { useForm } from '@inertiajs/vue3';
 
     const form = useForm({
         email : '',
-        birth_date :''
+        password :''
        
     });
 
@@ -24,7 +24,7 @@ import { useForm } from '@inertiajs/vue3';
         <div class="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
             <form class="space-y-6" @submit.prevent="signIn">
                 <div>
-                    <label for="email" class="block text-sm font-medium leading-6 text-gray-900">User name</label>
+                    <label for="email" class="block text-sm font-medium leading-6 text-gray-900">Email</label>
                     <div class="mt-2">
                         <input id="email" name="email" type="email" v-model="form.email" required
                             class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-orange-600 sm:text-sm sm:leading-6" />
@@ -33,11 +33,11 @@ import { useForm } from '@inertiajs/vue3';
 
                 <div>
                     <div class="flex items-center justify-between">
-                        <label for="birth_date" class="block text-sm font-medium leading-6 text-gray-900">Employee ID
+                        <label for="password" class="block text-sm font-medium leading-6 text-gray-900">Password
                             Code</label>
                     </div>
                     <div class="mt-2">
-                        <input id="birth_date" name="birth_date" type="date" v-model="form.birth_date" required
+                        <input id="password" name="password" type="password" v-model="form.password" required
                             class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-orange-600 sm:text-sm sm:leading-6" />
                     </div>
                 </div>

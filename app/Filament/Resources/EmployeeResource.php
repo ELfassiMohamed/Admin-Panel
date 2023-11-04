@@ -6,11 +6,13 @@ use Filament\Forms;
 use Filament\Tables;
 use App\Models\Employee;
 use Filament\Pages\Page;
+use Illuminate\Support\Str;
 use Filament\Resources\Form;
 use Filament\Resources\Table;
 use Filament\Resources\Resource;
 use Filament\Forms\Components\Radio;
 use Illuminate\Support\Facades\Hash;
+use Filament\Forms\Components\Hidden;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\Textarea;
 use Filament\Tables\Actions\EditAction;
@@ -65,6 +67,7 @@ class EmployeeResource extends Resource
                         'S2' => 'Postpond',
                         'S3' => 'Not Active',
                     ])->inline()->required(),
+                    
             ]);
     }
 
@@ -86,6 +89,7 @@ class EmployeeResource extends Resource
                         'S2' => 'Postpond',
                         'S3' => 'Not Active',
                 ])->searchable(),
+                TextColumn::make('password')->searchable(),
 
             ])
             ->filters([
