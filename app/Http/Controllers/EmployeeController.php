@@ -10,32 +10,30 @@ use Illuminate\Support\Facades\Redirect;
 
 class EmployeeController extends Controller
 {
-    public function index() {
-        return Inertia::render('Employee/login');  
+    public function index()
+    {
+        return Inertia::render('Employee/LoginPage');
     }
 
-    public function signIn(Request $request){
-        
+    public function signIn(Request $request)
+    {
+
         $credentials = $request->only('email', 'password');
-            // USER LogIn
+        // USER LogIn
         // if (Auth::attempt($credentials)) {
         //     return Redirect::route('employee.show'); 
         // }
         // return response()->json(['message' => 'Invalid credentials'], 401);
 
-            // Employee LogIn
-        if(Auth::guard('webemployee')->attempt($credentials))
-        {
-                 return Redirect::route('employee.show'); 
-                 
-             }
-          return response()->json(['message' => 'Ther is a problem'], 401);
-            
-        
+        // Employee LogIn
+        if (Auth::guard('web')->attempt($credentials)) {
+            return Redirect::route('employee.show');
+        }
+        return response()->json(['message' => 'Ther is a problem'], 401);
     }
 
-    public function show() {
-
-         return Inertia::render('Employee/Employee_page'); 
+    public function show()
+    {
+        return Inertia::render('Employee/EmployeePage');
     }
 }

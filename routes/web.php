@@ -41,8 +41,8 @@ Route::middleware('auth')->group(function () {
 
 require __DIR__.'/auth.php';
 
-Route::get('/employee',[EmployeeController::class , 'index'])->name('employee.login');
-Route::post('/login',[EmployeeController::class , 'signIn']);
+Route::get('/employee',[EmployeeController::class , 'index']);
+Route::post('/LoginPage',[EmployeeController::class , 'signIn']);
 Route::get('/employee/show',[EmployeeController::class , 'show'])->name('employee.show');
 
 

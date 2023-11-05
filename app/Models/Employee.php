@@ -25,16 +25,6 @@ class Employee extends Authenticatable
         'password'
     ];
 
-    // protected $hidden = [
-    //     'birth_date',
-
-    // ];
-
-    // public function getAuthPassword()
-    //         {
-    //             return $this->birth_date;
-    //         }
-
     public function department() {
         return $this->belongsTo(Department::class);
     }

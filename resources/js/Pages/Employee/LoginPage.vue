@@ -9,7 +9,7 @@ import { useForm } from '@inertiajs/vue3';
     });
 
     function signIn(){
-        form.post('/login')
+        form.post('/LoginPage')
     };
 
 
