@@ -40,7 +40,7 @@ return [
             'driver' => 'session',
             'provider' => 'users',
         ],
-        'webemployee' => [
+        'employee' => [
             //'redirectTo' => 'employee.home',
             'driver' => 'session',
             'provider' => 'employees',

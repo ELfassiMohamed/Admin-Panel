@@ -18,7 +18,7 @@ class EmployeeController extends Controller
     public function signIn(Request $request)
     {
 
-        $credentials = $request->only('email', 'password');
+        //$credentials = $request->only('email', 'password');
         // USER LogIn
         // if (Auth::attempt($credentials)) {
         //     return Redirect::route('employee.show'); 
@@ -26,10 +26,16 @@ class EmployeeController extends Controller
         // return response()->json(['message' => 'Invalid credentials'], 401);
 
         // Employee LogIn
-        if (Auth::guard('web')->attempt($credentials)) {
+        $input = $request->all();
+        $this->validate($request,[
+            'email' => 'required',
+            'password' => 'required',
+        ]);
+        if (Auth::guard('web')->attempt(['email' => $input['email'],'password' => $input['password']]))
+        {
             return Redirect::route('employee.show');
         }
-        return response()->json(['message' => 'Ther is a problem'], 401);
+        return response()->json(401);
     }
 
     public function show()
