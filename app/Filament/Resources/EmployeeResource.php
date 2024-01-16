@@ -23,13 +23,14 @@ use Illuminate\Database\Eloquent\Builder;
 use App\Filament\Resources\EmployeeResource\Pages;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 use App\Filament\Resources\EmployeeResource\RelationManagers;
+use Filament\Tables\Columns\ImageColumn;
 use Filament\Tables\Columns\TextColumn;
 
 class EmployeeResource extends Resource
 {
     protected static ?string $model = Employee::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string $navigationIcon = 'heroicon-o-user-group';
 
     public static function form(Form $form): Form
     {
@@ -46,16 +47,12 @@ class EmployeeResource extends Resource
                                     Radio::make('sex')
                                     ->options(Sex::class)
                                     ->inline(),
-                                    //TextInput::make('email')->email()->required(),
-                                   // TextInput::make('phone')->required()
-
                                 ]),
                         ]),
                  Tabs::make('Tabs')
                         ->tabs([
                             Tabs\Tab::make('Employee Infos')
                                 ->schema([
-                                    //TextInput::make('employee_number')->required(),
                                     Select::make('employee_role')
                                     ->options(EmployeeRoles::class)
                                     ->required(),
@@ -65,10 +62,7 @@ class EmployeeResource extends Resource
                                     Radio::make('employee_status')
                                     ->options(EmployeeStatus::class)
                                     ->inline(),
-                                    //TextInput::make('email')->unique()->email()->required(),
                                     TextInput::make('phone')->required()
-                                    //TextInput::make('password')->password()->required()
-
                                 ]),
                         ])
             ]);
@@ -78,6 +72,7 @@ class EmployeeResource extends Resource
     {
         return $table
             ->columns([
+                ImageColumn::make('image')->disk('public'),
                 TextColumn::make('full_name'),
                 TextColumn::make('employee_number'),
                 TextColumn::make('employee_status')->badge(),

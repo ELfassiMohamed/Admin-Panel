@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Enums\Department;
+use Illuminate\Support\Str;
 use App\Enums\EmployeeRoles;
 use App\Enums\EmployeeStatus;
 use Illuminate\Support\Facades\Hash;
@@ -54,7 +55,9 @@ class Employee extends Model
     {
         // You can implement your own logic to generate the employee number,
         // for example, combining a prefix with a unique identifier.
-        return 'EMP' . uniqid();
+        //return 'EMP' . uniqid();
+        //or generate random string plus random number
+        return strtoupper(Str::random(2)). rand(1000, 99999);
     }
 
     protected static function generatePassword($lastName, $employeeNumber)

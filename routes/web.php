@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\EmployeeController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -22,5 +23,9 @@ Route::view('dashboard', 'dashboard')
 Route::view('profile', 'profile')
     ->middleware(['auth'])
     ->name('profile');
+
+Route::get('/Sign-In',[EmployeeController::class ,'index'])->name('login-component'); 
+Route::post('getConnection',[EmployeeController::class , 'signin'])->name('employee.signin');
+Route::get('/Dashboard',[EmployeeController::class ,'show'])->name('dashboard-component'); 
 
 require __DIR__.'/auth.php';
