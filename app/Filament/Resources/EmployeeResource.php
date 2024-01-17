@@ -62,7 +62,8 @@ class EmployeeResource extends Resource
                                     Radio::make('employee_status')
                                     ->options(EmployeeStatus::class)
                                     ->inline(),
-                                    TextInput::make('phone')->required()
+                                    TextInput::make('phone')->required(),
+                                    //TextInput::make('password')->password()->required()
                                 ]),
                         ])
             ]);

@@ -7,16 +7,16 @@ use Filament\Support\Contracts\HasLabel;
 
 enum EmployeeStatus: string implements HasLabel, HasColor{
 
-    case ACTIVE = 'active';
-    case INACTIVE = 'inactive';
-    case ON_LEAVE = 'on_leave';
+    case ACTIVE = 'Active';
+    case INACTIVE = 'Inactive';
+    case ON_LEAVE = 'On Leave';
 
     public function getLabel(): ?string
     {
         return match ($this) {
-            self::ACTIVE => 'active',
-            self::INACTIVE => 'inactive',
-            self::ON_LEAVE => 'on_leave',
+            self::ACTIVE => 'Active',
+            self::INACTIVE => 'Inactive',
+            self::ON_LEAVE => 'On Leave',
         };
     }
 

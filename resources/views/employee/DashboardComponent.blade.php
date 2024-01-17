@@ -8,9 +8,5 @@
 </head>
 <body>
    <h1>Hello employee</h1> 
-   
-    <p> <h4>Name</h4>{{ $user->name }} </p>
-    <p> <h4>E-mail</h4>{{ $user->email }} </p>
-
 </body>
 </html>

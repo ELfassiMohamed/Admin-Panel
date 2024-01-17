@@ -14,14 +14,7 @@ class EmployeeController extends Controller
     }
 
     public function signin(Request $request){
-        //Auth Using User Credentials
-        // $credentials = $request->only('email', 'password');
-        // if (Auth::attempt($credentials)) {
-        //     return Redirect::route('dashboard-component');
-        // }
-        // return response()->json(['message' => 'Invalid credentials'], 401);
-
-        //Auth Improved By ChatGpt
+        
         $request->validate([
             'email' => 'required|email',
             'password' => 'required',
@@ -29,7 +22,7 @@ class EmployeeController extends Controller
     
         $credentials = $request->only('email', 'password');
     
-        if (Auth::guard('client')->attempt($credentials)) {
+        if (Auth::guard('employee')->attempt($credentials)) {
             return Redirect::route('dashboard-component');
         }
     
@@ -37,7 +30,7 @@ class EmployeeController extends Controller
     }
 
     public function show(){
-        $user = Auth::guard('client')->user();
+        $user = Auth::guard('employee')->user();
         return view('employee.DashboardComponent')->with('user', $user);
     }
 }

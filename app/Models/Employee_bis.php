@@ -2,26 +2,18 @@
 
 namespace App\Models;
 
-// use Illuminate\Contracts\Auth\MustVerifyEmail;
 use App\Enums\Department;
 use Illuminate\Support\Str;
 use App\Enums\EmployeeRoles;
 use App\Enums\EmployeeStatus;
-use Laravel\Sanctum\HasApiTokens;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Notifications\Notifiable;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Foundation\Auth\User as Authenticatable;
 
-class Employee extends Authenticatable
+class Employee extends Model
 {
-    use HasApiTokens, HasFactory, Notifiable;
+    use HasFactory;
 
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array<int, string>
-     */
     protected $fillable = [
         'full_name',
         'image',
@@ -38,20 +30,6 @@ class Employee extends Authenticatable
         'password'
     ];
 
-    /**
-     * The attributes that should be hidden for serialization.
-     *
-     * @var array<int, string>
-     */
-    protected $hidden = [
-        'password',
-    ];
-
-    /**
-     * The attributes that should be cast.
-     *
-     * @var array<string, string>
-     */
     protected $casts = [
         'password' => 'hashed',
         'employee_status' => EmployeeStatus::class,
@@ -75,6 +53,8 @@ class Employee extends Authenticatable
     // Custom method to generate an employee number
     protected static function generateEmployeeNumber()
     {
+        // You can implement your own logic to generate the employee number,
+        // for example, combining a prefix with a unique identifier.
         //return 'EMP' . uniqid();
         //or generate random string plus random number
         return strtoupper(Str::random(2)). rand(1000, 99999);
@@ -83,7 +63,7 @@ class Employee extends Authenticatable
     protected static function generatePassword($lastName, $employeeNumber)
     {
         // You can customize the password generation logic based on your requirements
-        return Hash::make($employeeNumber);
+        return Hash::make($lastName . $employeeNumber);
     }
 
     protected static function generateEmployeeEmail($FirstName , $lastName){
